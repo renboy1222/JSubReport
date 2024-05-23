@@ -1,0 +1,53 @@
+-- header/student information
+SELECT
+    student.firstname
+    , student.surname
+    , student.mobile_no
+    , citizenship.citizenship
+    , civil_status.civil_status
+    , course.course
+    , student.gender
+    , student.date_of_birth
+    , student.photo
+    , SUM(student.id) AS student_id 
+FROM
+    register_db.student
+    INNER JOIN register_db.civil_status 
+        ON (student.civil_status_id = civil_status.id)
+    INNER JOIN register_db.citizenship
+        ON (student.citizenship_id = citizenship.id)
+    INNER JOIN register_db.course
+        ON (student.course_id = course.id) WHERE student.id =1 
+
+
+
+-- details/student subjects/schedule
+SELECT
+    subject.code
+    , subject.subject
+    , subject.unit
+    , instructor.surname
+    , instructor.firstname
+    , room.room
+    , day.day
+    , time.time
+ FROM 
+    register_db.class_enroll
+    INNER JOIN register_db.class_offer 
+        ON (class_enroll.class_offer_id = class_offer.id)
+    INNER JOIN register_db.day 
+        ON (class_offer.day_id = day.id)
+    INNER JOIN register_db.instructor
+        ON (class_offer.instructor_id = instructor.id)
+    INNER JOIN register_db.room 
+        ON (class_offer.room_id = room.id)
+    INNER JOIN register_db.subject
+        ON (class_offer.subject_id = subject.id)
+    INNER JOIN register_db.time 
+        ON (class_offer.time_id = time.id) WHERE class_enroll.student_id =1 
+
+ 
+
+
+
+
